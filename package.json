@@ -1,0 +1,28 @@
+{
+  "name": "gradient-gauss",
+  "version": "0.1.0",
+  "description": "Library to generate colors using a smooth gauss function",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run build && mocha --require @babel/register './test/*.spec.js'",
+    "build": "babel src -d lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alocay/gradient-gauss.git"
+  },
+  "author": "[ \"Armando Locay",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/alocay/gradient-gauss/issues"
+  },
+  "homepage": "https://github.com/alocay/gradient-gauss#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.7.5",
+    "@babel/core": "^7.7.5",
+    "@babel/preset-env": "^7.7.6",
+    "@babel/register": "^7.7.4",
+    "chai": "^4.2.0",
+    "mocha": "^6.2.2"
+  }
+}
