@@ -51,7 +51,7 @@ class GradientGauss {
 
     gaussFunction(value, amplitude, center, rmsWidth) {
         let numerator = Math.pow(value - center, 2);
-        let denominator = Math.pow(2 * rmsWidth, 2);
+        let denominator = 2 * Math.pow(rmsWidth, 2);
         let exp = -1 * (numerator / denominator);
         let curve = Math.pow(Math.E, exp);
         return Math.round(curve * amplitude);

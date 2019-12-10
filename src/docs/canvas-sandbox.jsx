@@ -5,54 +5,76 @@ import Slider from '@material-ui/core/Slider';
 import Typography from '@material-ui/core/Typography';
 import GradientGauss from '..';
 
+const DEFAULT_CANVAS_WIDTH = 600;
+const CANVAS_HEIGHT = 50;
+
 export default class CanvasSandbox extends React.Component {
     constructor(props) {
         super(props);
         this.canvas = null;
+        this.container = null;
+        this.layer = null;
         this.ctx = null;
         this.imgData = null;
 
         this.state = {
-            width: 600,
-            height: 50,
+            min: 0,
+            max: DEFAULT_CANVAS_WIDTH,
+            containerWidth: 0,
             redCenterFactor: 1.0,
             greenCenterFactor: 0.5,
             blueCenterFactor: 0.25,
             widthDivisions: 5
         };
         
-        this.gradient = new GradientGauss(0, this.state.width, { outputFormat: 'array' });
+        this.gradient = null; 
     }
 
     componentDidMount() {
         this.ctx = this.canvas.getContext('2d');
-        console.log(this.canvas.width);
-        this.imgData = this.ctx.createImageData(this.state.width, this.state.height);
-        this.paintGradient();
+
+        window.addEventListener("resize", this.resized.bind(this));
+
+        this.setState({ max: this.getCanvasWidth(), containerWidth: this.container.clientWidth }, function () {
+            this.gradient = new GradientGauss(0, this.getCanvasWidth(), { outputFormat: 'array' });
+            this.imgData = this.ctx.createImageData(this.getCanvasWidth(), CANVAS_HEIGHT);
+            this.paintGradient();        
+        });
+    }
+
+    getCanvasWidth() {
+        return this.canvas && this.canvas.width > 0 ? this.canvas.width : (this.container ? this.container.clientWidth : DEFAULT_CANVAS_WIDTH);
+    }
+
+    resized() {
+        this.setState({ max: this.getCanvasWidth(), containerWidth: this.container.clientWidth }, function() {
+            this.imgData = this.ctx.createImageData(this.getCanvasWidth(), CANVAS_HEIGHT);
+            this.paintGradient();
+        });
     }
 
     getIndex(x, y) {
-        return (y * (this.state.width * 4)) + (x * 4);
+        return (y * (this.getCanvasWidth() * 4)) + (x * 4);
     }
-    
-    paintColumn(color, x) {
-        for (var y = 0; y < this.state.height; y++) {
+   
+    paintColumn(color, x, imgData) {
+        for (var y = 0; y < CANVAS_HEIGHT; y++) {
             let index = this.getIndex(x, y);
-            this.imgData.data[index] = color[0];
-            this.imgData.data[index+1] = color[1];
-            this.imgData.data[index+2] = color[2];
-            this.imgData.data[index+3] = color[3];
+            imgData.data[index] = color[0];
+            imgData.data[index+1] = color[1];
+            imgData.data[index+2] = color[2];
+            imgData.data[index+3] = color[3];
         }
     }
 
     paintGradient() {
         if (!this.imgData) return;
 
-        for (var i = 0; i < this.state.width; i++) {
+        for (var i = 0; i < this.getCanvasWidth(); i++) {
             let color = this.gradient.getColor(i, this.state);
-            this.paintColumn(color, i);
+            this.paintColumn(color, i, this.imgData);
         }
-
+ 
         this.ctx.putImageData(this.imgData, 0, 0);
     }
 
@@ -76,8 +98,9 @@ export default class CanvasSandbox extends React.Component {
 
     render() {
         this.paintGradient();
+
         return (
-            <div id='sandbox'>
+            <div id='sandbox' ref={ref => (this.container = ref)}>
                 <Typography gutterBottom>
                     Red channel center factor
                 </Typography>
@@ -127,8 +150,7 @@ export default class CanvasSandbox extends React.Component {
                     step={1}
                     onChange={this.onDivisionsChanged.bind(this)} />
 
-
-                <canvas width={this.state.width} height={this.state.height} ref={ref => (this.canvas = ref)} />
+                <canvas id="canvas" width={this.state.containerWidth} height={CANVAS_HEIGHT} ref={ref => (this.canvas = ref)} />
             </div>
         );
     }

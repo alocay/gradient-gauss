@@ -47,7 +47,7 @@ it('should format the output to an array if the format is to array', function() 
 
 it('should return the appropriate color for a given value', function() {
     let options = { outputFormat: 'array' };
-    let expected = [196, 240, 255, 255];
+    let expected = [9, 255, 122, 255];
 
     let gradient = new GradientGauss(1, 100, options);
     gradient.getColor(50).should.eql(expected);
