@@ -2,10 +2,15 @@
   "name": "gradient-gauss",
   "version": "0.1.0",
   "description": "Library to generate colors using a smooth gauss function",
-  "main": "index.js",
+  "main": "lib/index.js",
+  "directories": {
+    "lib": "lib"
+  },
   "scripts": {
     "test": "npm run build && mocha --require @babel/register './test/*.spec.js'",
-    "build": "babel src -d lib"
+    "build": "babel src -d lib",
+    "dev": "webpack-dev-server --mode development",
+    "docs": "webpack --mode production"
   },
   "repository": {
     "type": "git",
@@ -21,11 +26,25 @@
     "@babel/cli": "^7.7.5",
     "@babel/core": "^7.7.5",
     "@babel/preset-env": "^7.7.6",
+    "@babel/preset-react": "^7.7.4",
     "@babel/register": "^7.7.4",
+    "@material-ui/core": "^4.7.2",
+    "@material-ui/styles": "^4.7.1",
+    "babel-loader": "^8.0.6",
     "chai": "^4.2.0",
+    "classname": "0.0.0",
+    "css-loader": "^3.3.0",
     "html-webpack-plugin": "^3.2.0",
+    "immutability-helper": "^3.0.1",
+    "immutable": "^4.0.0-rc.12",
+    "jquery": "^3.4.1",
     "mocha": "^6.2.2",
+    "muicss": "^0.10.0",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "style-loader": "^1.0.1",
     "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10",
     "webpack-dev-server": "^3.9.0"
   }
 }

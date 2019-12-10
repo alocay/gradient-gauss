@@ -1,16 +1,24 @@
 const DEFAULT_MAX_COLOR_VALUE = 255;
 const DEFAULT_OUTPUT_FORMAT = 'rgba'
+const DEFAULT_RED_CENTER_FACTOR = 1.0;
+const DEFAULT_GREEN_CENTER_FACTOR = 0.5;
+const DEFAULT_BLUE_CENTER_FACTOR = 0.25;
+const DEFAULT_WIDTH_DIVISIONS = 5;
 
 class GradientGauss {
     constructor(min, max, options) {
-        if (!min || !max) {
+        if ((min !== 0 && !min) || (max !== 0 && !max)) {
             throw new Error('Minimum and maximum value range must be provided');
         }
 
         this.max = max;
         this.min = min;
-        this.amplitude = (options && options.colorMax) || DEFAULT_MAX_COLOR_VALUE;
-        this.outputFormat = (options && options.outputFormat) || DEFAULT_OUTPUT_FORMAT;
+        this.amplitude = this.getOptionOrDefault(options, 'colorMax', DEFAULT_MAX_COLOR_VALUE);
+        this.outputFormat = this.getOptionOrDefault(options, 'outputFormat', DEFAULT_OUTPUT_FORMAT);
+        this.redCenterFactor = this.getOptionOrDefault(options, 'redCenterFactor', DEFAULT_RED_CENTER_FACTOR);
+        this.greenCenterFactor = this.getOptionOrDefault(options, 'greenCenterFactor', DEFAULT_GREEN_CENTER_FACTOR);
+        this.blueCenterFactor = this.getOptionOrDefault(options, 'blueCenterFactor', DEFAULT_BLUE_CENTER_FACTOR);
+        this.widthDivisions = this.getOptionOrDefault(options, 'widthDivisions', DEFAULT_WIDTH_DIVISIONS);
     }
     
     get DefaultMaxColorValue() {
@@ -37,6 +45,10 @@ class GradientGauss {
         return this.min;
     }
 
+    getOptionOrDefault(options, property, defaultValue) {
+        return (options && options[property]) || defaultValue;
+    }
+
     gaussFunction(value, amplitude, center, rmsWidth) {
         let numerator = Math.pow(value - center, 2);
         let denominator = Math.pow(2 * rmsWidth, 2);
@@ -55,11 +67,15 @@ class GradientGauss {
     }
 
     getColor(value, options) {
-        let width = (this.max - this.min) / 2;
-
-        let rcenter = this.min + this.max;
-        let gcenter = this.min + (this.max * 0.25);
-        let bcenter = this.min + (this.max * 0.5);
+        let widthDivisions = this.getOptionOrDefault(options, 'widthDivisions', this.widthDivisions);
+        let redFactor = this.getOptionOrDefault(options, 'redCenterFactor', this.redCenterFactor);
+        let greenFactor = this.getOptionOrDefault(options, 'greenCenterFactor', this.greenCenterFactor);
+        let blueFactor = this.getOptionOrDefault(options, 'blueCenterFactor', this.blueCenterFactor);
+        
+        let width = Math.max((this.max - this.min) / widthDivisions, 1);
+        let rcenter = this.min + (this.max * redFactor);
+        let gcenter = this.min + (this.max * greenFactor);
+        let bcenter = this.min + (this.max * blueFactor);
 
         let red = this.gaussFunction(value, this.amplitude, rcenter, width);
         let green = this.gaussFunction(value, this.amplitude, gcenter, width);
