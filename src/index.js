@@ -71,17 +71,19 @@ class GradientGauss {
         let redFactor = this.getOptionOrDefault(options, 'redCenterFactor', this.redCenterFactor);
         let greenFactor = this.getOptionOrDefault(options, 'greenCenterFactor', this.greenCenterFactor);
         let blueFactor = this.getOptionOrDefault(options, 'blueCenterFactor', this.blueCenterFactor);
-        
-        let width = Math.max((this.max - this.min) / widthDivisions, 1);
-        let rcenter = this.min + (this.max * redFactor);
-        let gcenter = this.min + (this.max * greenFactor);
-        let bcenter = this.min + (this.max * blueFactor);
+        let min = this.getOptionOrDefault(options, 'min', this.min);
+        let max = this.getOptionOrDefault(options, 'max', this.max);
+
+        let width = Math.max((max - min) / widthDivisions, 1);
+        let rcenter = min + (max * redFactor);
+        let gcenter = min + (max * greenFactor);
+        let bcenter = min + (max * blueFactor);
 
         let red = this.gaussFunction(value, this.amplitude, rcenter, width);
         let green = this.gaussFunction(value, this.amplitude, gcenter, width);
         let blue = this.gaussFunction(value, this.amplitude, bcenter, width);
 
-        return this.formatOutput([red, green, blue, 255], ((options && options.outputFormat) || this.outputFormat));
+        return this.formatOutput([red, green, blue, 255], this.getOptionOrDefault(options, 'outputFormat', this.outputFormat));
     }
 }
 

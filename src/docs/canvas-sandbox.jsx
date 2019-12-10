@@ -9,34 +9,34 @@ export default class CanvasSandbox extends React.Component {
     constructor(props) {
         super(props);
         this.canvas = null;
-        this.width = 600;
-        this.height = 50;
         this.ctx = null;
-        
         this.imgData = null;
 
-        this.gradient = new GradientGauss(0, this.width, { outputFormat: 'array' });
-
         this.state = {
+            width: 600,
+            height: 50,
             redCenterFactor: 1.0,
             greenCenterFactor: 0.5,
             blueCenterFactor: 0.25,
             widthDivisions: 5
         };
+        
+        this.gradient = new GradientGauss(0, this.state.width, { outputFormat: 'array' });
     }
 
     componentDidMount() {
         this.ctx = this.canvas.getContext('2d');
-        this.imgData = this.ctx.createImageData(this.width, this.height);
+        console.log(this.canvas.width);
+        this.imgData = this.ctx.createImageData(this.state.width, this.state.height);
         this.paintGradient();
     }
 
     getIndex(x, y) {
-        return (y * (this.width * 4)) + (x * 4);
+        return (y * (this.state.width * 4)) + (x * 4);
     }
     
     paintColumn(color, x) {
-        for (var y = 0; y < this.height; y++) {
+        for (var y = 0; y < this.state.height; y++) {
             let index = this.getIndex(x, y);
             this.imgData.data[index] = color[0];
             this.imgData.data[index+1] = color[1];
@@ -48,7 +48,7 @@ export default class CanvasSandbox extends React.Component {
     paintGradient() {
         if (!this.imgData) return;
 
-        for (var i = 0; i < this.width; i++) {
+        for (var i = 0; i < this.state.width; i++) {
             let color = this.gradient.getColor(i, this.state);
             this.paintColumn(color, i);
         }
@@ -128,7 +128,7 @@ export default class CanvasSandbox extends React.Component {
                     onChange={this.onDivisionsChanged.bind(this)} />
 
 
-                <canvas width={this.width} height={this.height} ref={ref => (this.canvas = ref)} />
+                <canvas width={this.state.width} height={this.state.height} ref={ref => (this.canvas = ref)} />
             </div>
         );
     }
