@@ -133,15 +133,9 @@ class GradientGauss {
      * Gets the color associated with th given value
      * @name getColor
      * @param {number} value The number to get the associated color value
-     * @param {Object} [options=null] One time option overrides to customize the gradient. Permanent options values should be set during construction.
+     * @param {Object} [options=null] One time option overrides to customize the gradient. Permanent options values should be set during construction. Besides the ones listed below, @see GradientGauss for information on other options available.
      * @param {number} [options.max=null] The max range value
      * @param {number} [options.min=null] The min range value
-     * @param {number} [options.colorMax=255] The maximum color value
-     * @param {String} [options.outputFormat='rgba'] The output format
-     * @param {number} [options.redCenterFactor=1.0] The percentage of the range where the red center should be located
-     * @param {number} [options.greenCenterFactor=0.5] The percentage of the range where the green center should be located
-     * @param {number} [options.blueCenterFactor=0.25] The percentage of the range where the blue center should be located
-     * @param {number} [options.rangeDivisor=5] The number by which the range will be divided to determine the color curve width 
      * @returns The color in either rgba string format or array format
      */
     getColor(value, options) {
