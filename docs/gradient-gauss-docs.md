@@ -25,8 +25,6 @@ A GradientGauss object
 
 ## getColor
 
--   **See: GradientGauss for other options besides the ones listed above**
-
 Gets the color associated with th given value
 
 ### Parameters
@@ -37,6 +35,7 @@ Gets the color associated with th given value
     -   `options.min` **[number][5]** The min range value (optional, default `null`)
 
 Returns **any** The color in either rgba string format or array format
+See [GradientGauss][1] options documentation for other options available besides the ones listed above
 
 [1]: #gradientgauss
 
