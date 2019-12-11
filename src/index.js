@@ -137,7 +137,7 @@ class GradientGauss {
      * @param {number} [options.max=null] The max range value
      * @param {number} [options.min=null] The min range value
      * @returns The color in either rgba string format or array format
-     * @see GradientGauss for other options besides the ones listed above
+     * See {@link GradientGauss} options documentation for other options available besides the ones listed above
      */
     getColor(value, options) {
         let widthDivisions = this.getOptionOrDefault(options, 'rangeDivisor', this.widthDivisions);
