@@ -30,12 +30,11 @@ Gets the color associated with th given value
 ### Parameters
 
 -   `value` **[number][5]** The number to get the associated color value
--   `options` **[Object][6]** One time option overrides to customize the gradient. Permanent options values should be set during construction. (optional, default `null`)
+-   `options` **[Object][6]** One time option overrides to customize the gradient. Permanent options values should be set during construction. See [GradientGauss][1] options documentation for other options available besides the ones listed below. (optional, default `null`)
     -   `options.max` **[number][5]** The max range value (optional, default `null`)
     -   `options.min` **[number][5]** The min range value (optional, default `null`)
 
 Returns **any** The color in either rgba string format or array format
-See [GradientGauss][1] options documentation for other options available besides the ones listed above
 
 [1]: #gradientgauss
 

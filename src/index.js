@@ -133,11 +133,10 @@ class GradientGauss {
      * Gets the color associated with th given value
      * @name getColor
      * @param {number} value The number to get the associated color value
-     * @param {Object} [options=null] One time option overrides to customize the gradient. Permanent options values should be set during construction.
+     * @param {Object} [options=null] One time option overrides to customize the gradient. Permanent options values should be set during construction. See {@link GradientGauss} options documentation for other options available besides the ones listed below. 
      * @param {number} [options.max=null] The max range value
      * @param {number} [options.min=null] The min range value
      * @returns The color in either rgba string format or array format
-     * See {@link GradientGauss} options documentation for other options available besides the ones listed above
      */
     getColor(value, options) {
         let widthDivisions = this.getOptionOrDefault(options, 'rangeDivisor', this.widthDivisions);
