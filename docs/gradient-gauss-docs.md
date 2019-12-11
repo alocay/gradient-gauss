@@ -4,7 +4,8 @@
 
 -   [GradientGauss][1]
     -   [Parameters][2]
-    -   [Parameters][3]
+-   [getColor][3]
+    -   [Parameters][4]
 
 ## GradientGauss
 
@@ -12,18 +13,18 @@ A GradientGauss object
 
 ### Parameters
 
--   `min` **[number][4]** The minimum value of your range
--   `max` **[number][4]** The maxiumum value of your range
--   `options` **[object][5]** Options to customize the gradient (optional, default `null`)
+-   `min` **[number][5]** The minimum value of your range
+-   `max` **[number][5]** The maxiumum value of your range
+-   `options` **[object][6]** Options to customize the gradient (optional, default `null`)
 
-## 
+## getColor
 
 Gets the color associated with th given value
 
 ### Parameters
 
--   `value` **[number][4]** The number to get the associated color value
--   `options` **[object][5]** Options to customize the gradient (optional, default `null`)
+-   `value` **[number][5]** The number to get the associated color value
+-   `options` **[object][6]** Options to customize the gradient (optional, default `null`)
 
 Returns **any** The color in either rgba string format or array format
 
@@ -31,8 +32,10 @@ Returns **any** The color in either rgba string format or array format
 
 [2]: #parameters
 
-[3]: #parameters-1
+[3]: #getcolor
 
-[4]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
+[4]: #parameters-1
 
-[5]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+[5]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
+
+[6]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object

@@ -125,6 +125,7 @@ class GradientGauss {
 
     /**
      * Gets the color associated with th given value
+     * @name getColor
      * @param {number} value The number to get the associated color value
      * @param {object} [options=null] Options to customize the gradient
      * @returns The color in either rgba string format or array format
