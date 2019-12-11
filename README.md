@@ -3,4 +3,4 @@ A library to generate a color in a gradient using a [Gaussian function](https://
 
 A simple demo [here](https://alocay.github.io/gradient-gauss/).
 
-More details and documentation to come
+Simple documentation [here](https://github.com/alocay/gradient-gauss/blob/master/docs/gradient-gauss-docs.md)
