@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "npm run build && mocha --require @babel/register './test/*.spec.js'",
-    "build": "babel src -d lib",
+    "build": "babel src -d lib && documentation build lib/index.js -f md -o docs/gradient-gauss-docs.md",
     "dev": "webpack-dev-server --mode development",
     "docs": "webpack --mode production"
   },
@@ -34,6 +34,7 @@
     "chai": "^4.2.0",
     "classname": "0.0.0",
     "css-loader": "^3.3.0",
+    "documentation": "^12.1.4",
     "html-webpack-plugin": "^3.2.0",
     "immutability-helper": "^3.0.1",
     "jquery": "^3.4.1",

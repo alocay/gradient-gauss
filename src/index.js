@@ -5,6 +5,12 @@ const DEFAULT_GREEN_CENTER_FACTOR = 0.5;
 const DEFAULT_BLUE_CENTER_FACTOR = 0.25;
 const DEFAULT_WIDTH_DIVISIONS = 5;
 
+/**
+ * A GradientGauss object
+ * @param {number} min The minimum value of your range
+ * @param {number} max The maxiumum value of your range
+ * @param {object} [options=null] Options to customize the gradient
+ */
 class GradientGauss {
     constructor(min, max, options) {
         if ((min !== 0 && !min) || (max !== 0 && !max)) {
@@ -21,34 +27,81 @@ class GradientGauss {
         this.widthDivisions = this.getOptionOrDefault(options, 'widthDivisions', DEFAULT_WIDTH_DIVISIONS);
     }
     
+    /**
+     * @private
+     * Gets the default max color value
+     * @returns {number} the default max color value
+     */
     get DefaultMaxColorValue() {
         return DEFAULT_MAX_COLOR_VALUE;
     }
 
+    /**
+     * @private
+     * Gets the default output format
+     * @returns {string} the default output format
+     */
     get DefaultOutputFormat() {
         return DEFAULT_OUTPUT_FORMAT;
     }
 
+    /**
+     * @private
+     * Gets the max color value
+     * @returns {number} the max color value
+     */
     get maxColorValue() {
         return this.amplitude;
     }
 
+    /**
+     * @private
+     * Gets the output format
+     * @returns {string} the output format
+     */
     get format() {
         return this.outputFormat;
     }
 
+    /**
+     * @private
+     * Gets the maximum value stored during construction
+     * @returns {number} the maximum value
+     */
     get valueMax() {
         return this.max; 
     }
 
+    /**
+     * @private
+     * Gets the minimum value stored during construction
+     * @returns {number} the minimum value
+     */
     get valueMin() {
         return this.min;
     }
 
+    /**
+     * @private
+     * Gets and returns the value from the options object (with the given property) or the default value
+     * @param {object} options the options object
+     * @param {string} property the property name
+     * @param {any} defaultValue a default value to return if one isn't found
+     * @returns {any} either the value from the options object or the default value
+     */
     getOptionOrDefault(options, property, defaultValue) {
         return (options && options[property]) || defaultValue;
     }
 
+    /**
+     * @private
+     * The gaussian function to calculate the color value
+     * @param {number} value the value (the x-value)
+     * @param {number} amplitude the curve peak
+     * @param {number} center the curve center
+     * @param {number} rmsWidth the curve width
+     * @returns {number} the color value (the y-value)
+     */
     gaussFunction(value, amplitude, center, rmsWidth) {
         let numerator = Math.pow(value - center, 2);
         let denominator = 2 * Math.pow(rmsWidth, 2);
@@ -57,6 +110,10 @@ class GradientGauss {
         return Math.round(curve * amplitude);
     }
 
+    /**
+     * @private
+     * Formats the result color to either an array or rgba string
+     */
     formatOutput(colorArray, outputFormat) {
         switch (outputFormat) {
             case 'rgba':
@@ -66,6 +123,12 @@ class GradientGauss {
         }
     }
 
+    /**
+     * Gets the color associated with th given value
+     * @param {number} value The number to get the associated color value
+     * @param {object} [options=null] Options to customize the gradient
+     * @returns The color in either rgba string format or array format
+     */
     getColor(value, options) {
         let widthDivisions = this.getOptionOrDefault(options, 'widthDivisions', this.widthDivisions);
         let redFactor = this.getOptionOrDefault(options, 'redCenterFactor', this.redCenterFactor);
