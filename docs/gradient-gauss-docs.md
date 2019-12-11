@@ -25,12 +25,14 @@ A GradientGauss object
 
 ## getColor
 
+-   **See: GradientGauss for other options besides the ones listed above**
+
 Gets the color associated with th given value
 
 ### Parameters
 
 -   `value` **[number][5]** The number to get the associated color value
--   `options` **[Object][6]** One time option overrides to customize the gradient. Permanent options values should be set during construction. Besides the ones listed below, @see GradientGauss for information on other options available. (optional, default `null`)
+-   `options` **[Object][6]** One time option overrides to customize the gradient. Permanent options values should be set during construction. (optional, default `null`)
     -   `options.max` **[number][5]** The max range value (optional, default `null`)
     -   `options.min` **[number][5]** The min range value (optional, default `null`)
 
