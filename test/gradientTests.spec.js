@@ -52,3 +52,13 @@ it('should return the appropriate color for a given value', function() {
     let gradient = new GradientGauss(1, 100, options);
     gradient.getColor(50).should.eql(expected);
 });
+
+it ('should allow for min and max changes when getting a color', function() {
+    let options = { outputFormat: 'array' };
+    let expected = [9, 255, 122, 255];
+    let expectedNewMax = [254, 13, 0, 255];
+
+    let gradient = new GradientGauss(1, 100, options);
+    gradient.getColor(50).should.eql(expected);
+    gradient.getColor(50, { max: 50 }).should.eql(expectedNewMax);
+});
