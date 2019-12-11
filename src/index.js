@@ -9,7 +9,13 @@ const DEFAULT_WIDTH_DIVISIONS = 5;
  * A GradientGauss object
  * @param {number} min The minimum value of your range
  * @param {number} max The maxiumum value of your range
- * @param {object} [options=null] Options to customize the gradient
+ * @param {Object} [options=null] Options to customize the gradient
+ * @param {number} [options.colorMax=255] The maximum color value
+ * @param {String} [options.outputFormat='rgba'] The output format
+ * @param {number} [options.redCenterFactor=1.0] The percentage of the range where the red center should be located
+ * @param {number} [options.greenCenterFactor=0.5] The percentage of the range where the green center should be located
+ * @param {number} [options.blueCenterFactor=0.25] The percentage of the range where the blue center should be located
+ * @param {number} [options.rangeDivisor=5] The number by which the range will be divided to determine the color curve width 
  */
 class GradientGauss {
     constructor(min, max, options) {
@@ -24,7 +30,7 @@ class GradientGauss {
         this.redCenterFactor = this.getOptionOrDefault(options, 'redCenterFactor', DEFAULT_RED_CENTER_FACTOR);
         this.greenCenterFactor = this.getOptionOrDefault(options, 'greenCenterFactor', DEFAULT_GREEN_CENTER_FACTOR);
         this.blueCenterFactor = this.getOptionOrDefault(options, 'blueCenterFactor', DEFAULT_BLUE_CENTER_FACTOR);
-        this.widthDivisions = this.getOptionOrDefault(options, 'widthDivisions', DEFAULT_WIDTH_DIVISIONS);
+        this.widthDivisions = this.getOptionOrDefault(options, 'rangeDivisor', DEFAULT_WIDTH_DIVISIONS);
     }
     
     /**
@@ -39,7 +45,7 @@ class GradientGauss {
     /**
      * @private
      * Gets the default output format
-     * @returns {string} the default output format
+     * @returns {String} the default output format
      */
     get DefaultOutputFormat() {
         return DEFAULT_OUTPUT_FORMAT;
@@ -57,7 +63,7 @@ class GradientGauss {
     /**
      * @private
      * Gets the output format
-     * @returns {string} the output format
+     * @returns {String} the output format
      */
     get format() {
         return this.outputFormat;
@@ -84,10 +90,10 @@ class GradientGauss {
     /**
      * @private
      * Gets and returns the value from the options object (with the given property) or the default value
-     * @param {object} options the options object
-     * @param {string} property the property name
+     * @param {Object} options the options object
+     * @param {String} property the property name
      * @param {any} defaultValue a default value to return if one isn't found
-     * @returns {any} either the value from the options object or the default value
+     * @returns either the value from the options object or the default value
      */
     getOptionOrDefault(options, property, defaultValue) {
         return (options && options[property]) || defaultValue;
@@ -127,27 +133,37 @@ class GradientGauss {
      * Gets the color associated with th given value
      * @name getColor
      * @param {number} value The number to get the associated color value
-     * @param {object} [options=null] Options to customize the gradient
+     * @param {Object} [options=null] One time option overrides to customize the gradient. Permanent options values should be set during construction.
+     * @param {number} [options.max=null] The max range value
+     * @param {number} [options.min=null] The min range value
+     * @param {number} [options.colorMax=255] The maximum color value
+     * @param {String} [options.outputFormat='rgba'] The output format
+     * @param {number} [options.redCenterFactor=1.0] The percentage of the range where the red center should be located
+     * @param {number} [options.greenCenterFactor=0.5] The percentage of the range where the green center should be located
+     * @param {number} [options.blueCenterFactor=0.25] The percentage of the range where the blue center should be located
+     * @param {number} [options.rangeDivisor=5] The number by which the range will be divided to determine the color curve width 
      * @returns The color in either rgba string format or array format
      */
     getColor(value, options) {
-        let widthDivisions = this.getOptionOrDefault(options, 'widthDivisions', this.widthDivisions);
+        let widthDivisions = this.getOptionOrDefault(options, 'rangeDivisor', this.widthDivisions);
         let redFactor = this.getOptionOrDefault(options, 'redCenterFactor', this.redCenterFactor);
         let greenFactor = this.getOptionOrDefault(options, 'greenCenterFactor', this.greenCenterFactor);
         let blueFactor = this.getOptionOrDefault(options, 'blueCenterFactor', this.blueCenterFactor);
         let min = this.getOptionOrDefault(options, 'min', this.min);
         let max = this.getOptionOrDefault(options, 'max', this.max);
+        let amplitude = this.getOptionsOrDefault(options, 'colorMax', this.amplitude);
+        let outputFormat = this.getOptionOrDefault(options, 'outputFormat', this.outputFormat);
 
         let width = Math.max((max - min) / widthDivisions, 1);
         let rcenter = min + (max * redFactor);
         let gcenter = min + (max * greenFactor);
         let bcenter = min + (max * blueFactor);
 
-        let red = this.gaussFunction(value, this.amplitude, rcenter, width);
-        let green = this.gaussFunction(value, this.amplitude, gcenter, width);
-        let blue = this.gaussFunction(value, this.amplitude, bcenter, width);
+        let red = this.gaussFunction(value, amplitude, rcenter, width);
+        let green = this.gaussFunction(value, amplitude, gcenter, width);
+        let blue = this.gaussFunction(value, amplitude, bcenter, width);
 
-        return this.formatOutput([red, green, blue, 255], this.getOptionOrDefault(options, 'outputFormat', this.outputFormat));
+        return this.formatOutput([red, green, blue, 255], outputFormat);
     }
 }
 

@@ -15,7 +15,13 @@ A GradientGauss object
 
 -   `min` **[number][5]** The minimum value of your range
 -   `max` **[number][5]** The maxiumum value of your range
--   `options` **[object][6]** Options to customize the gradient (optional, default `null`)
+-   `options` **[Object][6]** Options to customize the gradient (optional, default `null`)
+    -   `options.colorMax` **[number][5]** The maximum color value (optional, default `255`)
+    -   `options.outputFormat` **[String][7]** The output format (optional, default `'rgba'`)
+    -   `options.redCenterFactor` **[number][5]** The percentage of the range where the red center should be located (optional, default `1.0`)
+    -   `options.greenCenterFactor` **[number][5]** The percentage of the range where the green center should be located (optional, default `0.5`)
+    -   `options.blueCenterFactor` **[number][5]** The percentage of the range where the blue center should be located (optional, default `0.25`)
+    -   `options.rangeDivisor` **[number][5]** The number by which the range will be divided to determine the color curve width (optional, default `5`)
 
 ## getColor
 
@@ -24,7 +30,15 @@ Gets the color associated with th given value
 ### Parameters
 
 -   `value` **[number][5]** The number to get the associated color value
--   `options` **[object][6]** Options to customize the gradient (optional, default `null`)
+-   `options` **[Object][6]** One time option overrides to customize the gradient. Permanent options values should be set during construction. (optional, default `null`)
+    -   `options.max` **[number][5]** The max range value (optional, default `null`)
+    -   `options.min` **[number][5]** The min range value (optional, default `null`)
+    -   `options.colorMax` **[number][5]** The maximum color value (optional, default `255`)
+    -   `options.outputFormat` **[String][7]** The output format (optional, default `'rgba'`)
+    -   `options.redCenterFactor` **[number][5]** The percentage of the range where the red center should be located (optional, default `1.0`)
+    -   `options.greenCenterFactor` **[number][5]** The percentage of the range where the green center should be located (optional, default `0.5`)
+    -   `options.blueCenterFactor` **[number][5]** The percentage of the range where the blue center should be located (optional, default `0.25`)
+    -   `options.rangeDivisor` **[number][5]** The number by which the range will be divided to determine the color curve width (optional, default `5`)
 
 Returns **any** The color in either rgba string format or array format
 
@@ -39,3 +53,5 @@ Returns **any** The color in either rgba string format or array format
 [5]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
 
 [6]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+
+[7]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
