@@ -16,7 +16,8 @@
     "type": "git",
     "url": "git+https://github.com/alocay/gradient-gauss.git"
   },
-  "author": "[ \"Armando Locay",
+  "author": "Armando Locay <alocay@gmail.com>",
+  "contributors": [ "Armando Locay", "Marcus Vinson", "Christian Whitted" ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/alocay/gradient-gauss/issues"
