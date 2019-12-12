@@ -3,15 +3,7 @@ A library to generate a color in a gradient using a [Gaussian function](https://
 
 [Simple demo](https://alocay.github.io/gradient-gauss/) showing the changes the gradient when certain parameters are tweaked.
 
-[![Build Status](https://travis-ci.org/alocay/react-image-fuzzy.svg?branch=master)](https://travis-ci.org/alocay/react-image-fuzzy)
-[![npm version](https://badge.fury.io/js/react-image-fuzzy.svg)](https://badge.fury.io/js/react-image-fuzzy)
-[![dependencies Status](https://david-dm.org/alocay/react-image-fuzzy/status.svg)](https://david-dm.org/alocay/react-image-fuzzy)
-[![devDependencies Status](https://david-dm.org/alocay/react-image-fuzzy/dev-status.svg)](https://david-dm.org/alocay/react-image-fuzzy?type=dev)
-
-[![Inline docs](http://inch-ci.org/github/alocay/react-image-fuzzy.svg?branch=master)](http://inch-ci.org/github/alocay/react-image-fuzzy)
-[![Maintainability](https://api.codeclimate.com/v1/badges/f13fd9a3135459ab4ca7/maintainability)](https://codeclimate.com/github/alocay/react-image-fuzzy/maintainability)
-[![NSP Status](https://nodesecurity.io/orgs/alocay/projects/7961934f-400b-4587-bc78-19b2009d7a19/badge)](https://nodesecurity.io/orgs/alocay/projects/7961934f-400b-4587-bc78-19b2009d7a19)
-[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/esta/issues)
+[![Build Status](https://travis-ci.org/alocay/gradient-gauss.svg?branch=master)](https://travis-ci.org/alocay/gradient-gauss)
 
 ## Getting Started
 Download the package via NPM 
