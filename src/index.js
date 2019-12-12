@@ -53,6 +53,42 @@ class GradientGauss {
 
     /**
      * @private
+     * Gets the default red center factor
+     * @returns {number} the default center factor
+     */
+    get DefaultRedCenterFactor() {
+        return DEFAULT_RED_CENTER_FACTOR;
+    }
+    
+    /**
+     * @private
+     * Gets the default green center factor
+     * @returns {number} the default center factor
+     */
+    get DefaultGreenCenterFactor() {
+        return DEFAULT_GREEN_CENTER_FACTOR;
+    }
+    
+    /**
+     * @private
+     * Gets the default blue center factor
+     * @returns {number} the default center factor
+     */
+    get DefaultBlueCenterFactor() {
+        return DEFAULT_BLUE_CENTER_FACTOR;
+    }
+   
+    /**
+     * @private
+     * Gets the default width divisions
+     * @returns {number} the default width divisions
+     */
+    get DefaultWidthDivisions() {
+        return DEFAULT_WIDTH_DIVISIONS;
+    }
+
+    /**
+     * @private
      * Gets the max color value
      * @returns {number} the max color value
      */
@@ -85,6 +121,42 @@ class GradientGauss {
      */
     get valueMin() {
         return this.min;
+    }
+
+    /**
+     * @private
+     * Gets the red center factor
+     * @returns {number} the red center factor
+     */
+    get redCenterPct() {
+        return this.redCenterFactor;
+    }
+
+    /**
+     * @private
+     * Gets the green center factor
+     * @returns {number} the green center factor
+     */
+    get greenCenterPct() {
+        return this.greenCenterFactor;
+    }
+
+    /**
+     * @private
+     * Gets the blue center factor
+     * @returns {number} the blue center factor
+     */
+    get blueCenterPct() {
+        return this.blueCenterFactor;
+    }
+
+    /**
+     * @private
+     * Gets the width divisions
+     * @returns {number} the width divisions
+     */
+    get widthDiv() {
+        return this.widthDivisions;
     }
 
     /**
@@ -145,7 +217,7 @@ class GradientGauss {
         let blueFactor = this.getOptionOrDefault(options, 'blueCenterFactor', this.blueCenterFactor);
         let min = this.getOptionOrDefault(options, 'min', this.min);
         let max = this.getOptionOrDefault(options, 'max', this.max);
-        let amplitude = this.getOptionsOrDefault(options, 'colorMax', this.amplitude);
+        let amplitude = this.getOptionOrDefault(options, 'colorMax', this.amplitude);
         let outputFormat = this.getOptionOrDefault(options, 'outputFormat', this.outputFormat);
 
         let width = Math.max((max - min) / widthDivisions, 1);

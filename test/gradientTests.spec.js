@@ -15,9 +15,13 @@ it('should have default value set when constructed', function(){
     gradient.valueMin.should.equal(1);
     gradient.format.should.equal(gradient.DefaultOutputFormat);
     gradient.maxColorValue.should.equal(gradient.DefaultMaxColorValue);
+    gradient.redCenterPct.should.equal(gradient.DefaultRedCenterFactor);
+    gradient.greenCenterPct.should.equal(gradient.DefaultGreenCenterFactor);
+    gradient.blueCenterPct.should.equal(gradient.DefaultBlueCenterFactor);
+    gradient.widthDiv.should.equals(gradient.DefaultWidthDivisions);
 });
 
-it('should use passed in options when constructed', function() {
+it('should use passed in options when provided and defaults when not', function() {
     let options = {
         colorMax: 200,
         outputFormat: 'foo'
@@ -29,6 +33,33 @@ it('should use passed in options when constructed', function() {
     gradient.valueMin.should.equal(1);
     gradient.maxColorValue.should.equal(options.colorMax);
     gradient.format.should.equal(options.outputFormat);
+    gradient.redCenterPct.should.equal(gradient.DefaultRedCenterFactor);
+    gradient.greenCenterPct.should.equal(gradient.DefaultGreenCenterFactor);
+    gradient.blueCenterPct.should.equal(gradient.DefaultBlueCenterFactor);
+    gradient.widthDiv.should.equals(gradient.DefaultWidthDivisions);
+
+});
+
+it('should use passed in options when constructed', function() {
+    let options = {
+        colorMax: 200,
+        outputFormat: 'foo',
+        redCenterFactor: 0.5,
+        greenCenterFactor: 1.0,
+        blueCenterFactor: 0.1,
+        rangeDivisor: 2
+    };
+
+    let gradient = new GradientGauss(1, 100, options);
+
+    gradient.valueMax.should.equal(100);
+    gradient.valueMin.should.equal(1);
+    gradient.maxColorValue.should.equal(options.colorMax);
+    gradient.format.should.equal(options.outputFormat);
+    gradient.redCenterPct.should.equal(options.redCenterFactor);
+    gradient.greenCenterPct.should.equal(options.greenCenterFactor);
+    gradient.blueCenterPct.should.equal(options.blueCenterFactor);
+    gradient.widthDiv.should.equals(options.rangeDivisor);
 });
 
 it('should format the output to rgba if the format is set to rgba', function() {
