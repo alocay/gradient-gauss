@@ -3,7 +3,7 @@ A library to generate a color in a gradient using a [Gaussian function](https://
 
 [Simple demo](https://alocay.github.io/gradient-gauss/) showing the changes the gradient when certain parameters are tweaked.
 
-[![Build Status](https://travis-ci.org/alocay/react-image-fuzzy.svg?branch=master)](https://travis-ci.org/alocay/react-image-fuzzy)
+[![Build Status](https://travis-ci.org/alocay/gradient-gauss.svg?branch=master)]
 [![npm version](https://badge.fury.io/js/react-image-fuzzy.svg)](https://badge.fury.io/js/react-image-fuzzy)
 [![dependencies Status](https://david-dm.org/alocay/react-image-fuzzy/status.svg)](https://david-dm.org/alocay/react-image-fuzzy)
 [![devDependencies Status](https://david-dm.org/alocay/react-image-fuzzy/dev-status.svg)](https://david-dm.org/alocay/react-image-fuzzy?type=dev)
