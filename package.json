@@ -3,12 +3,12 @@
   "version": "0.1.0",
   "description": "Library to generate colors using a smooth gauss function",
   "main": "lib/index.js",
-  "directories": {
-    "lib": "lib"
-  },
+  "files": [
+    "dist"  
+  ],
   "scripts": {
     "test": "npm run build && mocha --require @babel/register './test/*.spec.js'",
-    "build": "babel src -d lib && documentation build lib/index.js -f md -o docs/gradient-gauss-docs.md",
+    "build": "babel src -d dist && documentation build dist/index.js -f md -o docs/gradient-gauss-docs.md",
     "dev": "webpack-dev-server --mode development",
     "docs": "webpack --mode production"
   },
@@ -17,7 +17,7 @@
     "url": "git+https://github.com/alocay/gradient-gauss.git"
   },
   "author": "Armando Locay <alocay@gmail.com>",
-  "contributors": [ "Armando Locay", "Marcus Vinson", "Christian Whitted" ],
+  "contributors": [ "Marcus Vinson", "Christian Whitted" ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/alocay/gradient-gauss/issues"

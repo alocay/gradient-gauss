@@ -1,6 +1,6 @@
 import assert from 'assert';
 import chai from 'chai';
-import GradientGauss from '../lib/index.js'
+import GradientGauss from '../dist/index.js'
 
 const should = chai.should();
 const expect = chai.expect;
