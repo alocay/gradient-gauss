@@ -3,6 +3,7 @@ import React from 'react';
 import update from 'immutability-helper';
 import Slider from '@material-ui/core/Slider';
 import Typography from '@material-ui/core/Typography';
+import { Stage, Layer, Line } from 'react-konva';
 import GradientGauss from '..';
 
 const DEFAULT_CANVAS_WIDTH = 600;
@@ -24,7 +25,7 @@ export default class CanvasSandbox extends React.Component {
             redCenterFactor: 1.0,
             greenCenterFactor: 0.5,
             blueCenterFactor: 0.25,
-            widthDivisions: 5
+            rangeDivisor: 5
         };
         
         this.gradient = null; 
@@ -35,8 +36,8 @@ export default class CanvasSandbox extends React.Component {
 
         window.addEventListener("resize", this.resized.bind(this));
 
+        this.gradient = new GradientGauss(0, this.getCanvasWidth(), { outputFormat: 'array' });
         this.setState({ max: this.getCanvasWidth(), containerWidth: this.container.clientWidth }, function () {
-            this.gradient = new GradientGauss(0, this.getCanvasWidth(), { outputFormat: 'array' });
             this.imgData = this.ctx.createImageData(this.getCanvasWidth(), CANVAS_HEIGHT);
             this.paintGradient();        
         });
@@ -93,7 +94,61 @@ export default class CanvasSandbox extends React.Component {
     }
 
     onDivisionsChanged(evt, value) {
-        this.setState({ widthDivisions: value });
+        this.setState({ rangeDivisor: value });
+    }
+
+    getSlider(value, color) {
+        return (
+            <Slider 
+                value={value} 
+                valueLabelDisplay="auto" 
+                min={0.1}
+                max={1.0}
+                step={0.05}
+                onChange={this.onCenterFactorChanged.bind(this, color)} />
+        );
+    }
+
+    getCurves() {
+        if (!this.gradient) return null;
+
+        let threshold = 15;
+        let rpoints = [], gpoints = [], bpoints = [];
+        for (var i = 0; i < this.getCanvasWidth(); i++) {
+            let color = this.gradient.getColor(i, this.state);
+           
+            let revRed = this.gradient.maxColorValue - color[0];
+            let revGreen = this.gradient.maxColorValue - color[1];
+            let revBlue = this.gradient.maxColorValue - color[2];
+
+            if (color[0] > threshold)
+                rpoints.push(i, revRed)
+            
+            if (color[1] > threshold)
+                gpoints.push(i, revGreen);
+            
+            if (color[2] > threshold)
+                bpoints.push(i, revBlue);
+        }
+
+        return (
+            <React.Fragment>
+                <Line 
+                    points={rpoints}
+                    stroke='red'
+                    strokeWidth={3} />
+
+                <Line 
+                    points={gpoints}
+                    stroke='green'
+                    strokeWidth={3} />
+
+                <Line 
+                    points={bpoints}
+                    stroke='blue'
+                    strokeWidth={3} />
+            </React.Fragment>
+        );
     }
 
     render() {
@@ -104,46 +159,27 @@ export default class CanvasSandbox extends React.Component {
                 <Typography gutterBottom>
                     Red channel center factor
                 </Typography>
-                
-                <Slider 
-                    value={this.state.redCenterFactor} 
-                    valueLabelDisplay="auto" 
-                    min={0.1}
-                    max={1.0}
-                    step={0.05}
-                    onChange={this.onCenterFactorChanged.bind(this, 'red')} />
+               
+                {this.getSlider(this.state.redCenterFactor, 'red')}
                 
                 <Typography gutterBottom>
                     Green channel center factor
                 </Typography>
                 
-                <Slider 
-                    value={this.state.greenCenterFactor} 
-                    valueLabelDisplay="auto" 
-                    min={0.1}
-                    max={1.0}
-                    step={0.05}
-                    onChange={this.onCenterFactorChanged.bind(this, 'green')} />
+                {this.getSlider(this.state.greenCenterFactor, 'green')}
 
                 <Typography gutterBottom>
                     Blue channel center factor
                 </Typography>
-                
-                <Slider 
-                    value={this.state.blueCenterFactor} 
-                    valueLabelDisplay="auto" 
-                    min={0.1}
-                    max={1.0}
-                    step={0.05}
-                    onChange={this.onCenterFactorChanged.bind(this, 'blue')} />
-
+            
+                {this.getSlider(this.state.blueCenterFactor, 'blue')}
 
                 <Typography gutterBottom>
                     Width divisions
                 </Typography>
                 
                 <Slider 
-                    value={this.state.widthDivisions} 
+                    value={this.state.rangeDivisor} 
                     valueLabelDisplay="auto" 
                     min={1}
                     max={10}
@@ -151,6 +187,12 @@ export default class CanvasSandbox extends React.Component {
                     onChange={this.onDivisionsChanged.bind(this)} />
 
                 <canvas id="canvas" width={this.state.containerWidth} height={CANVAS_HEIGHT} ref={ref => (this.canvas = ref)} />
+
+                <Stage width={this.state.containerWidth} height={300} borderWidth={3}>
+                     <Layer offsetY={-5}>
+                        {this.getCurves()}
+                    </Layer>
+                </Stage>
             </div>
         );
     }
