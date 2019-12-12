@@ -5,6 +5,7 @@ A library to generate a color in a gradient using a [Gaussian function](https://
 
 [![Build Status](https://travis-ci.org/alocay/gradient-gauss.svg?branch=master)](https://travis-ci.org/alocay/gradient-gauss)
 [![npm version](https://badge.fury.io/js/gradient-gauss.svg)](https://badge.fury.io/js/gradient-gauss)
+![Code Climate maintainability](https://img.shields.io/codeclimate/maintainability/alocay/gradient-gauss)
 
 ## Getting Started
 Download the package via NPM 
