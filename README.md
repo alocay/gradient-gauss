@@ -27,7 +27,7 @@ let gradient = new GradientGauss(1, 100); // Instantiate gradient gauss with a r
 let color = gradient.getColor(50); // Get the color for value 50
 ```           
 
-Options can be provided to GradientGauss to modify the behavior when calculating the colors. The following are the values that can be provided via the options:
+Options can be provided to GradientGauss to modify the behavior when calculating the colors. The following are the values that can be provided via the options (all are optional):
 
 * `min`:               the minimum value of your range
 * `max`:               the maximum value of your range
@@ -36,8 +36,11 @@ Options can be provided to GradientGauss to modify the behavior when calculating
 * `blueCenterFactor`:  the location of the blue bell curve center withiin the range provided
 * `greenCenterFactor`: the location of the green bell curve center withini the range provided
 * `rangeDivisor`:      the number by which the number range will be divided the color bell curve widths
+* `redDivisor`:        the same as range divisor but only affects the red channel. Will override `rangeDivisor` for the red channel.
+* `greenDivisor`:      the same as range divisor but only affects the green channel. Will override `rangeDivisor` for the green channel.
+* `blueDivisor`:       the same as range divisor but only affects the blue channel. Will override `rangeDivisor` for the blue channel.
 
-**Note:** The min and max options are not be used during instantiation. Check the [documentation](https://github.com/alocay/gradient-gauss/blob/master/docs/gradient-gauss-docs.md) for more information on the options and default values.
+**Note:** The min and max values within the options object are not used during instantiation. Check the [documentation](https://github.com/alocay/gradient-gauss/blob/master/docs/gradient-gauss-docs.md) for more information on the options and default values.
 
 ```js
 options = {
