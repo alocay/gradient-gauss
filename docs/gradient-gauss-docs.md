@@ -21,7 +21,10 @@ A GradientGauss object
     -   `options.redCenterFactor` **[number][5]** The percentage of the range where the red center should be located (optional, default `1.0`)
     -   `options.greenCenterFactor` **[number][5]** The percentage of the range where the green center should be located (optional, default `0.5`)
     -   `options.blueCenterFactor` **[number][5]** The percentage of the range where the blue center should be located (optional, default `0.25`)
-    -   `options.rangeDivisor` **[number][5]** The number by which the range will be divided to determine the color curve width (optional, default `5`)
+    -   `options.rangeDivisor` **[number][5]** The number by which the range will be divided to determine the color curve width for all colors. (optional, default `5`)
+    -   `options.redDivisor` **[number][5]** The number by with the range will be divided to determine the red color curve width. Will override rangeDivisor. (optional, default `null`)
+    -   `options.greenDivisor` **[number][5]** The number by with the range will be divided to determine the green color curve width. Will override rangeDivisor. (optional, default `null`)
+    -   `options.blueDivisor` **[number][5]** The number by with the range will be divided to determine the blue color curve width. Will override rangeDivisor. (optional, default `null`)
 
 ## getColor
 

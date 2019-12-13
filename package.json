@@ -1,6 +1,6 @@
 {
   "name": "gradient-gauss",
-  "version": "0.3.0",
+  "version": "0.5.0",
   "description": "Library to generate colors using a smooth gauss function",
   "main": "lib/index.js",
   "files": [

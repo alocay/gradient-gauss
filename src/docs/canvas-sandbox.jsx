@@ -24,8 +24,10 @@ export default class CanvasSandbox extends React.Component {
             containerWidth: 0,
             redCenterFactor: 1.0,
             greenCenterFactor: 0.5,
-            blueCenterFactor: 0.25,
-            rangeDivisor: 5
+            blueCenterFactor: 0.1,
+            redDivisor: 5,
+            greenDivisor: 5,
+            blueDivisor: 5
         };
         
         this.gradient = null; 
@@ -93,11 +95,24 @@ export default class CanvasSandbox extends React.Component {
         }
     }
 
-    onDivisionsChanged(evt, value) {
-        this.setState({ rangeDivisor: value });
+    onDivisionsChanged(channel, evt, value) {
+        switch (channel) {
+            case 'red':
+                this.setState({ redDivisor: value });
+                break;
+            case 'green':
+                this.setState({ greenDivisor: value });
+                break;
+            case 'blue':
+                this.setState({ blueDivisor: value });
+                break;
+            default:
+                this.setState({ rangeDivisor: value });
+                break;
+        }
     }
 
-    getSlider(value, color) {
+    getColorFactorSlider(value, color) {
         return (
             <Slider 
                 value={value} 
@@ -106,6 +121,18 @@ export default class CanvasSandbox extends React.Component {
                 max={1.0}
                 step={0.05}
                 onChange={this.onCenterFactorChanged.bind(this, color)} />
+        );
+    }
+
+    getDivisorSlider(value, color) {
+        return (
+            <Slider
+                value={value}
+                valueLabelDisplay="auto"
+                min={0.1}
+                max={10}
+                step={0.1}
+                onChange={this.onDivisionsChanged.bind(this, color)} />
         );
     }
 
@@ -160,31 +187,37 @@ export default class CanvasSandbox extends React.Component {
                     Red channel center factor
                 </Typography>
                
-                {this.getSlider(this.state.redCenterFactor, 'red')}
+                {this.getColorFactorSlider(this.state.redCenterFactor, 'red')}
                 
                 <Typography gutterBottom>
                     Green channel center factor
                 </Typography>
                 
-                {this.getSlider(this.state.greenCenterFactor, 'green')}
+                {this.getColorFactorSlider(this.state.greenCenterFactor, 'green')}
 
                 <Typography gutterBottom>
                     Blue channel center factor
                 </Typography>
             
-                {this.getSlider(this.state.blueCenterFactor, 'blue')}
+                {this.getColorFactorSlider(this.state.blueCenterFactor, 'blue')}
 
                 <Typography gutterBottom>
-                    Width divisions
+                    Red divisor
                 </Typography>
                 
-                <Slider 
-                    value={this.state.rangeDivisor} 
-                    valueLabelDisplay="auto" 
-                    min={1}
-                    max={10}
-                    step={1}
-                    onChange={this.onDivisionsChanged.bind(this)} />
+                {this.getDivisorSlider(this.state.redDivisor, 'red')}
+
+                <Typography gutterBottom>
+                    Green divisor
+                </Typography>
+                
+                {this.getDivisorSlider(this.state.greenDivisor, 'green')}
+
+                <Typography gutterBottom>
+                    Blue divisor
+                </Typography>
+                
+                {this.getDivisorSlider(this.state.blueDivisor, 'blue')}
 
                 <canvas id="canvas" width={this.state.containerWidth} height={CANVAS_HEIGHT} ref={ref => (this.canvas = ref)} />
 

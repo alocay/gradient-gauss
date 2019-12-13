@@ -4,6 +4,8 @@ const DEFAULT_RED_CENTER_FACTOR = 1.0;
 const DEFAULT_GREEN_CENTER_FACTOR = 0.5;
 const DEFAULT_BLUE_CENTER_FACTOR = 0.25;
 const DEFAULT_WIDTH_DIVISIONS = 5;
+const MINIMUM_RMS_WIDTH = 1;
+const MINIMUM_DIVISOR = 0.1;
 
 /**
  * A GradientGauss object
@@ -15,7 +17,10 @@ const DEFAULT_WIDTH_DIVISIONS = 5;
  * @param {number} [options.redCenterFactor=1.0] The percentage of the range where the red center should be located
  * @param {number} [options.greenCenterFactor=0.5] The percentage of the range where the green center should be located
  * @param {number} [options.blueCenterFactor=0.25] The percentage of the range where the blue center should be located
- * @param {number} [options.rangeDivisor=5] The number by which the range will be divided to determine the color curve width 
+ * @param {number} [options.rangeDivisor=5] The number by which the range will be divided to determine the color curve width for all colors. 
+ * @param {number} [options.redDivisor=null] The number by with the range will be divided to determine the red color curve width. Will override rangeDivisor.
+ * @param {number} [options.greenDivisor=null] The number by with the range will be divided to determine the green color curve width. Will override rangeDivisor.
+ * @param {number} [options.blueDivisor=null] The number by with the range will be divided to determine the blue color curve width. Will override rangeDivisor.
  */
 class GradientGauss {
     constructor(min, max, options) {
@@ -31,6 +36,9 @@ class GradientGauss {
         this.greenCenterFactor = this.getOptionOrDefault(options, 'greenCenterFactor', DEFAULT_GREEN_CENTER_FACTOR);
         this.blueCenterFactor = this.getOptionOrDefault(options, 'blueCenterFactor', DEFAULT_BLUE_CENTER_FACTOR);
         this.widthDivisions = this.getOptionOrDefault(options, 'rangeDivisor', DEFAULT_WIDTH_DIVISIONS);
+        this.redDivisor = this.getOptionOrDefault(options, 'redDivisor', null);
+        this.greenDivisor = this.getOptionOrDefault(options, 'greenDivisor', null);
+        this.blueDivisor = this.getOptionOrDefault(options, 'blueDivisor', null);
     }
     
     /**
@@ -220,14 +228,20 @@ class GradientGauss {
         let amplitude = this.getOptionOrDefault(options, 'colorMax', this.amplitude);
         let outputFormat = this.getOptionOrDefault(options, 'outputFormat', this.outputFormat);
 
-        let width = Math.max((max - min) / widthDivisions, 1);
+        let redDivisor = Math.max(this.getOptionOrDefault(options, 'redDivisor', widthDivisions), MINIMUM_DIVISOR);
+        let greenDivisor = Math.max(this.getOptionOrDefault(options, 'greenDivisor', widthDivisions), MINIMUM_DIVISOR);
+        let blueDivisor = Math.max(this.getOptionOrDefault(options, 'blueDivisor', widthDivisions), MINIMUM_DIVISOR);
+
+        let rwidth = Math.max((max - min) / redDivisor, MINIMUM_RMS_WIDTH);
+        let gwidth = Math.max((max - min) / greenDivisor, MINIMUM_RMS_WIDTH);
+        let bwidth = Math.max((max - min) / blueDivisor, MINIMUM_RMS_WIDTH);
         let rcenter = min + (max * redFactor);
         let gcenter = min + (max * greenFactor);
         let bcenter = min + (max * blueFactor);
 
-        let red = this.gaussFunction(value, amplitude, rcenter, width);
-        let green = this.gaussFunction(value, amplitude, gcenter, width);
-        let blue = this.gaussFunction(value, amplitude, bcenter, width);
+        let red = this.gaussFunction(value, amplitude, rcenter, rwidth);
+        let green = this.gaussFunction(value, amplitude, gcenter, gwidth);
+        let blue = this.gaussFunction(value, amplitude, bcenter, bwidth);
 
         return this.formatOutput([red, green, blue, 255], outputFormat);
     }

@@ -45,7 +45,10 @@ export default function Demo() {
                     </Grid>
                     <Grid item xs={2}>
                         <Link href="https://github.com/alocay/gradient-gauss" variant='body2' className={classes.link}>github</Link>
-                    </Grid>    
+                    </Grid>
+                    <Grid item xs={10}>
+                        <Typography variant='subtitle2'>A JavaScript library to convert a number range to a set of colors using Gaussian function</Typography>
+                    </Grid>
                 </Grid>
                 <CanvasSandbox />
             </Paper>
