@@ -13,7 +13,7 @@ Download the package via NPM
 npm install gradient-gauss 
 ```
 
-`import GradientGauss from 'gradient-gauss`   
+`import GradientGauss from 'gradient-gauss'`   
 
 or
  
