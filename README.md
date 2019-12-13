@@ -1,5 +1,5 @@
 # gradient-gauss
-A library to generate a color in a gradient using a [Gaussian function](https://en.wikipedia.org/wiki/Gaussian_function). The gradient gauss library is provided a range of numbers and will then calculate the respective color for a given number with the range.
+A JavaScript library to convert a number range to a set of colors using a [Gaussian function](https://en.wikipedia.org/wiki/Gaussian_function).
 
 [Simple demo](https://alocay.github.io/gradient-gauss/) showing the changes the gradient when certain parameters are tweaked.
 
