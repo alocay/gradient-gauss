@@ -37,7 +37,7 @@ Options can be provided to GradientGauss to modify the behavior when calculating
 * `greenCenterFactor`: the location of the green bell curve center withini the range provided
 * `rangeDivisor`:      the number by which the number range will be divided the color bell curve widths
 
-**Note:** The min and max options are not be used during instantiation. Check the [documentation](https://github.com/alocay/gradient-gauss-docs.md) for more information on the options and default values.
+**Note:** The min and max options are not be used during instantiation. Check the [documentation](https://github.com/alocay/gradient-gauss/blob/master/docs/gradient-gauss-docs.md) for more information on the options and default values.
 
 ```js
 options = {
@@ -58,7 +58,7 @@ new GradientGauss(1, 100).getColor(25, options);
 Refer to the documentation for more information.
 
 ## Documentation
-[Basic documentation](https://github.com/alocay/gradient-gauss-docs.md)  
+[Basic documentation](https://github.com/alocay/gradient-gauss/blob/master/docs/gradient-gauss-docs.md)  
 More to come.
 
 ## License
